@@ -1,0 +1,77 @@
+{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block body
+%}
+<section>
+  <!-- Add task form starts -->
+  <form method="post" id="task-form">
+    <!-- calendar -->
+    <input name="day" id="day" type="date" value="{{ request.form['day'] }}" />
+
+    <!-- show alert -->
+    <p id="alert"></p>
+
+    <!-- Add task -->
+    <input
+      name="newTask"
+      id="add-task"
+      type="text"
+      placeholder="Add Task"
+      value="{{ request.form['newTask'] }}"
+    />
+    <!-- Date and time -->
+    <input
+      name="datetime"
+      id="datetime"
+      type="datetime-local"
+      placeholder="MM/dd hh:mm A"
+      value="{{ request.form['datetime'] }}"
+    />
+    <!-- Priority -->
+    <input
+      name="priority"
+      id="priority"
+      type="text"
+      value="{{ request.form['priority'] }}"
+    />
+    <!-- single task set button -->
+    <button type="submit" id="add-btn">ADD</button>
+  </form>
+  <!-- Add task form ends -->
+
+  <!-- todo list starts -->
+  <div class="list-container">
+    <div id="list">
+      <!-- <ul id="task-id" class="todo-lists">
+            <li id="task-item">
+              <span>${newTask}</span>
+              <span>${datetime}</span>
+              <span>${priority}</span>
+            </li>
+            <div class="todo-list-btns">
+              <button id="edit-btn" type="button">edit</button>
+              <button id="delete-btn" type="button">delete</button>
+            </div> 
+          </ul>-->
+      <ul>
+        {% for task in tasks %}
+        <li>
+          <span>${newTask}</span>
+          <span>${datetime}</span>
+          <span>${priority}</span>
+        </li>
+        {% endfor %}
+        <div class="todo-list-btns">
+          <button id="edit-btn" type="button">edit</button>
+          <button id="delete-btn" type="button">delete</button>
+        </div>
+      </ul>
+    </div>
+    <!-- all tasks set button starts -->
+    <button type="button" id="set-btn">SET</button>
+    <!-- all tasks set button ends -->
+  </div>
+  <!-- todo list ends -->
+</section>
+
+<!-- <script src="script.js"></script> -->
+
+{% endblock %}
