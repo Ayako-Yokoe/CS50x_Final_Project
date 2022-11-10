@@ -2,12 +2,12 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
-
 from myTodoList.db import get_db
 
 bp = Blueprint('todo', __name__)
 
 
+# Render all tasks when GET, and create new tasks when POST
 @bp.route('/', methods=('GET', 'POST'))
 def index():
 
@@ -33,7 +33,10 @@ def index():
 
         else:
             db = get_db()
-            db.execute("INSERT INTO tasks (day, task, duedate, priority, completed) VALUES (?, ?, ?, ?, ?)", ( day, newTask, duedate, priority, completed))
+            db.execute(
+                "INSERT INTO tasks (day, task, duedate, priority, completed) VALUES (?, ?, ?, ?, ?)", 
+                ( day, newTask, duedate, priority, completed)
+                )
             db.commit()
             return redirect(url_for('todo.index'))
 
@@ -43,21 +46,25 @@ def index():
         db = get_db()
         # db.execute('DELETE FROM tasks')
         # db.commit()                                      
-        tasks = db.execute("SELECT id, strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M:%S', duedate) AS duedate, priority, completed FROM tasks").fetchall()
+        tasks = db.execute(
+            "SELECT id, strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M:%S', duedate) AS duedate, priority, completed FROM tasks"
+            ).fetchall()
 
         return render_template('todo/index.html', tasks=tasks)
 
-
+# Query tasks by id
 def get_task(id):
     db = get_db()
-    task = db.execute("SELECT strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M:%S', duedate) AS duedate, priority FROM tasks WHERE id=?", (id,)).fetchone()
+    task = db.execute(
+        "SELECT strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M:%S', duedate) AS duedate, priority FROM tasks WHERE id=?", (id,)
+        ).fetchone()
 
     if task is None:
         abort(404, f"Task id {id} doesn't exist.")
     
     return task
 
-
+# Edit single task
 @bp.route('/<int:id>/edit', methods=('GET', 'POST'))
 def edit(id):
     task = get_task(id)
@@ -68,8 +75,6 @@ def edit(id):
         priority = request.form['priority']
         error = None
 
-        print("edit duedate", duedate)
-    
         if not newTask:
             error = 'New task is required.'
 
@@ -78,13 +83,17 @@ def edit(id):
 
         else:
             db = get_db()
-            db.execute('UPDATE tasks SET task=?, duedate=?, priority=? WHERE id=?', (newTask, duedate, priority, id,))
+            db.execute(
+                'UPDATE tasks SET task=?, duedate=?, priority=? WHERE id=?', 
+                (newTask, duedate, priority, id,)
+                )
             db.commit()
             return redirect(url_for('todo.index'))
 
     return render_template('todo/edit.html', task=task)
 
 
+# Delete single task
 @bp.route('/<int:id>/delete', methods=('GET', 'POST'))
 def delete(id):
     get_task(id)

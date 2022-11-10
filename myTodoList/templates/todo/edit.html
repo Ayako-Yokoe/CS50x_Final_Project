@@ -1,9 +1,9 @@
-{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block body
+{% extends "layout.html" %} {% block title %} Edit {% endblock %} {% block body
 %}
 <section>
   <!-- Edit task form starts -->
   <form method="post" id="task-form">
-    <!-- show alert -->
+    <!-- Show alert -->
     <p id="alert"></p>
 
     <!-- Edit task -->
@@ -14,7 +14,7 @@
       value="{{ request.form['newTask'] or task['task'] }}"
       required
     />
-    <!-- Date and time -->
+    <!-- Due date -->
     <input
       name="duedate"
       id="duedate"
@@ -29,7 +29,7 @@
       type="text"
       value="{{ request.form['priority'] or task['priority'] }}"
     />
-    <!-- single task set button -->
+    <!-- Single task set button -->
     <button type="submit" id="add-btn">Edit</button>
   </form>
   <!-- Edit task form ends -->

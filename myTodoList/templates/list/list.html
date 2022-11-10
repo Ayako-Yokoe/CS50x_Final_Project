@@ -3,20 +3,17 @@ block body %}
 
 <section>
   <div>
-    <!-- calendar -->
+    <h3>TODAY'S TO DO</h3>
+  </div>
+  <div>
+    <!-- Calendar -->
     <form action="{{ url_for('list.index') }}" method="post" id="task-form">
-      <input
-        name="day"
-        id="day"
-        type="date"
-        value="{{ request.form['day'] }}"
-        required
-      />
-      <button type="button" id="set-btn">SET</button>
+      <input name="day" id="day" type="date" required />
+      <button type="submit" id="set-btn">SET</button>
     </form>
   </div>
 
-  <!-- todo list starts -->
+  <!-- Todo list starts -->
   <div class="list-container">
     <div id="list">
       <ul>
@@ -28,17 +25,18 @@ block body %}
         </li>
 
         <div class="todo-list-btns">
+          <!-- Edit button -->
           <a href="{{ url_for('todo.edit', id=task['id']) }}"
             ><button id="edit-btn" type="button">edit</button></a
           >
-
+          <!-- Delete button -->
           <form
             action="{{ url_for('todo.delete', id=task['id']) }}"
             method="post"
           >
             <input id="delete-btn" type="submit" value="Delete" />
           </form>
-
+          <!-- Completed button -->
           <form
             action="{{ url_for('list.completed', id=task['id']) }}"
             method="post"
@@ -55,7 +53,19 @@ block body %}
       </ul>
     </div>
   </div>
-  <!-- todo list ends -->
+  <!-- Todo list ends -->
+
+  <!-- Go back to plan page starts -->
+  <a href="{{ url_for('todo.index') }}"
+    ><button id="plan-btn" type="button">Plan</button></a
+  >
+  <!-- Go back to plan page ends -->
+
+  <!-- Today's task done starts -->
+  <form action="{{ url_for('list.done') }}" method="post">
+    <input id="done-btn" type="submit" value="Done" />
+  </form>
+  <!-- Today's task done ends -->
 </section>
 
 {% endblock %}

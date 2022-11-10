@@ -1,10 +1,10 @@
-{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block body
+{% extends "layout.html" %} {% block title %} Plan {% endblock %} {% block body
 %}
 
 <section>
   <!-- Add task form starts -->
   <form method="post" id="task-form">
-    <!-- calendar -->
+    <!-- Calendar -->
     <input
       name="day"
       id="day"
@@ -13,7 +13,7 @@
       required
     />
 
-    <!-- show alert -->
+    <!-- Show alert -->
     <p id="alert"></p>
 
     <!-- Add task -->
@@ -25,7 +25,7 @@
       value="{{ request.form['newTask'] }}"
       required
     />
-    <!-- Date and time -->
+    <!-- Due Date -->
     <input
       name="duedate"
       id="duedate"
@@ -39,25 +39,14 @@
       type="text"
       value="{{ request.form['priority'] }}"
     />
-    <!-- single task set button -->
+    <!-- Single task set button -->
     <button type="submit" id="add-btn">ADD</button>
   </form>
   <!-- Add task form ends -->
 
-  <!-- todo list starts -->
+  <!-- Todo list starts -->
   <div class="list-container">
     <div id="list">
-      <!-- <ul id="task-id" class="todo-lists">
-            <li id="task-item">
-              <span>${newTask}</span>
-              <span>${duedate}</span>
-              <span>${priority}</span>
-            </li>
-            <div class="todo-list-btns">
-              <button id="edit-btn" type="button">edit</button>
-              <button id="delete-btn" type="button">delete</button>
-            </div> 
-          </ul>-->
       <ul>
         {% for task in tasks %}
         <li>
@@ -67,10 +56,11 @@
         </li>
 
         <div class="todo-list-btns">
+          <!-- Edit button -->
           <a href="{{ url_for('todo.edit', id=task['id']) }}"
             ><button id="edit-btn" type="button">edit</button></a
           >
-
+          <!-- Delete button -->
           <form
             action="{{ url_for('todo.delete', id=task['id']) }}"
             method="post"
@@ -81,13 +71,13 @@
         {% endfor %}
       </ul>
     </div>
-    <!-- all tasks set button starts -->
-    <button type="button" id="set-btn">SET</button>
-    <!-- all tasks set button ends -->
+    <!-- All tasks set button starts -->
+    <a href="{{ url_for('list.index') }}"
+      ><button type="button" id="set-btn">SET</button></a
+    >
+    <!-- All tasks set button ends -->
   </div>
-  <!-- todo list ends -->
+  <!-- Todo list ends -->
 </section>
-
-<!-- <script src="script.js"></script> -->
 
 {% endblock %}
