@@ -1,0 +1,38 @@
+{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block body
+%}
+<section>
+  <!-- Edit task form starts -->
+  <form method="post" id="task-form">
+    <!-- show alert -->
+    <p id="alert"></p>
+
+    <!-- Edit task -->
+    <input
+      name="newTask"
+      id="add-task"
+      type="text"
+      value="{{ request.form['newTask'] or task['task'] }}"
+      required
+    />
+    <!-- Date and time -->
+    <input
+      name="duedate"
+      id="duedate"
+      type="datetime-local"
+      placeholder="MM/dd hh:mm A"
+      value="{{ request.form['duedate'] }}"
+    />
+    <!-- Priority -->
+    <input
+      name="priority"
+      id="priority"
+      type="text"
+      value="{{ request.form['priority'] or task['priority'] }}"
+    />
+    <!-- single task set button -->
+    <button type="submit" id="add-btn">Edit</button>
+  </form>
+  <!-- Edit task form ends -->
+</section>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "layout.html" %} {% block title %} Today's Todo {% endblock %} {%
+block body %}
+
+<section>
+  <div>
+    <!-- calendar -->
+    <form action="{{ url_for('list.index') }}" method="post" id="task-form">
+      <input
+        name="day"
+        id="day"
+        type="date"
+        value="{{ request.form['day'] }}"
+        required
+      />
+      <button type="button" id="set-btn">SET</button>
+    </form>
+  </div>
+
+  <!-- todo list starts -->
+  <div class="list-container">
+    <div id="list">
+      <ul>
+        {% for task in tasks %}
+        <li>
+          <span>{{ task['priority'] }}</span>
+          <span>{{ task['duedate'] }}</span>
+          <span>{{ task['task'] }}</span>
+        </li>
+
+        <div class="todo-list-btns">
+          <a href="{{ url_for('todo.edit', id=task['id']) }}"
+            ><button id="edit-btn" type="button">edit</button></a
+          >
+
+          <form
+            action="{{ url_for('todo.delete', id=task['id']) }}"
+            method="post"
+          >
+            <input id="delete-btn" type="submit" value="Delete" />
+          </form>
+
+          <form
+            action="{{ url_for('list.completed', id=task['id']) }}"
+            method="post"
+          >
+            <input
+              id="complete-btn"
+              type="submit"
+              name="completed"
+              value="{{ task['completed'] == 0 and 'Incompleted' or 'Completed'}}"
+            />
+          </form>
+        </div>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <!-- todo list ends -->
+</section>
+
+{% endblock %}

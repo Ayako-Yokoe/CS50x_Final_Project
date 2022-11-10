@@ -21,16 +21,21 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-    
+
     from . import db
     db.init_app(app)
-
 
     from . import todo
     app.register_blueprint(todo.bp)
     app.add_url_rule('/', endpoint='index')
 
+    from . import list
+    app.register_blueprint(list.bp)
+    app.add_url_rule('/list', endpoint='list')
+    
     return app
+
+
 
 
 # . venv/bin/activate
