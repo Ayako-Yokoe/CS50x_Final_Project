@@ -2,81 +2,125 @@
 %}
 
 <section>
-  <!-- Add task form starts -->
-  <form method="post" id="task-form">
-    <!-- Calendar -->
-    <input
-      name="day"
-      id="day"
-      type="date"
-      value="{{ request.form['day'] }}"
-      required
-    />
+  <div class="flex flex-col justify-center items-center mt-6">
+    <h3 class="text-4xl font-bold">PLAN TODO</h3>
+    <!-- Add task form starts -->
+    <form
+      method="post"
+      class="flex flex-col justify-center items-center mt-6 mb-6"
+    >
+      <div class="basis-1 mb-6">
+        <!-- Calendar -->
+        <input
+          name="day"
+          id="day"
+          type="date"
+          value="{{ request.form['day'] }}"
+          required
+          class="rounded py-1 px-2 border-2 border-blue-500"
+        />
+      </div>
 
-    <!-- Show alert -->
-    <p id="alert"></p>
+      <!-- Show alert -->
+      <p id="alert"></p>
 
-    <!-- Add task -->
-    <input
-      name="newTask"
-      id="add-task"
-      type="text"
-      placeholder="Add Task"
-      value="{{ request.form['newTask'] }}"
-      required
-    />
-    <!-- Due Date -->
-    <input
-      name="duedate"
-      id="duedate"
-      type="datetime-local"
-      value="{{ request.form['duedate'] }}"
-    />
-    <!-- Priority -->
-    <input
-      name="priority"
-      id="priority"
-      type="text"
-      value="{{ request.form['priority'] }}"
-    />
-    <!-- Single task set button -->
-    <button type="submit" id="add-btn">ADD</button>
-  </form>
+      <div class="basis-1">
+        <!-- Add task -->
+        <input
+          name="newTask"
+          id="add-task"
+          type="text"
+          placeholder="Add Task"
+          value="{{ request.form['newTask'] }}"
+          required
+          class="rounded py-1 px-2 border-2 border-blue-500"
+        />
+        <!-- Due Date -->
+        <input
+          name="duedate"
+          id="duedate"
+          type="datetime-local"
+          value="{{ request.form['duedate'] }}"
+          class="rounded py-1 px-2 border-2 border-blue-500"
+        />
+        <!-- Priority -->
+        <input
+          name="priority"
+          id="priority"
+          type="text"
+          placeholder="Priority"
+          value="{{ request.form['priority'] }}"
+          class="rounded py-1 px-2 border-2 border-blue-500"
+        />
+        <!-- Single task set button -->
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+        >
+          ADD
+        </button>
+      </div>
+    </form>
+  </div>
   <!-- Add task form ends -->
 
   <!-- Todo list starts -->
-  <div class="list-container">
-    <div id="list">
-      <ul>
-        {% for task in tasks %}
-        <li>
-          <span>{{ task['task'] }}</span>
-          <span>{{ task['duedate'] }}</span>
-          <span>{{ task['priority'] }}</span>
-        </li>
 
-        <div class="todo-list-btns">
-          <!-- Edit button -->
-          <a href="{{ url_for('todo.edit', id=task['id']) }}"
-            ><button id="edit-btn" type="button">edit</button></a
+  <div>
+    {% for task in tasks %}
+    <div class="flex flex-row justify-start items-center">
+      <p class="basis-1/2 rounded py-1 px-2 mr-1 mb-3 border-2 border-blue-500">
+        {{ task['task'] }}
+      </p>
+      <p class="basis-1/4 rounded py-1 px-2 mr-1 mb-3 border-2 border-blue-500">
+        {{ task['duedate'] }}
+      </p>
+      <p
+        class="basis-auto rounded py-1 px-3 mr-1 mb-3 border-2 border-blue-500"
+      >
+        {{ task['priority'] }}
+      </p>
+
+      <div class="flex flex-row justify-end items-center ml-auto mb-3">
+        <!-- Edit button -->
+        <a href="{{ url_for('todo.edit', id=task['id']) }}"
+          ><button
+            type="button"
+            class="ml-auto mr-1 bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
           >
-          <!-- Delete button -->
-          <form
-            action="{{ url_for('todo.delete', id=task['id']) }}"
-            method="post"
-          >
-            <input id="delete-btn" type="submit" value="Delete" />
-          </form>
-        </div>
-        {% endfor %}
-      </ul>
+            edit
+          </button></a
+        >
+        <!-- Delete button -->
+        <form
+          action="{{ url_for('todo.delete', id=task['id']) }}"
+          method="post"
+        >
+          <input
+            type="submit"
+            value="Delete"
+            class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+          />
+        </form>
+      </div>
     </div>
+
+    {% endfor %}
+  </div>
+
+  <div class="flex justify-center items-center">
     <!-- All tasks set button starts -->
     <a href="{{ url_for('list.index') }}"
-      ><button type="button" id="set-btn">SET</button></a
+      ><button
+        type="button"
+        class="self-center bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+      >
+        SET
+      </button></a
     >
-    <!-- All tasks set button ends -->
   </div>
+  <!-- All tasks set button ends -->
+
   <!-- Todo list ends -->
 </section>
 
