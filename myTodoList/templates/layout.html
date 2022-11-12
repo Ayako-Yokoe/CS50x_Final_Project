@@ -7,12 +7,14 @@
     <title>{% block title %}{% endblock %}</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
+      href="{{ url_for('static', filename='css/main.css') }}"
     />
   </head>
   <body>
-    {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %} {% block body %}{% endblock %}
+    <div class="container mx-auto">
+      {% for message in get_flashed_messages() %}
+      <div>{{ message }}</div>
+      {% endfor %} {% block body %}{% endblock %}
+    </div>
   </body>
 </html>
