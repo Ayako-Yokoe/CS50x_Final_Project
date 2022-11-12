@@ -1,38 +1,44 @@
 {% extends "layout.html" %} {% block title %} Edit {% endblock %} {% block body
 %}
 <section>
-  <!-- Edit task form starts -->
-  <form method="post" id="task-form">
-    <!-- Show alert -->
-    <p id="alert"></p>
+  <div class="flex justify-center mt-60 mx-auto">
+    <!-- Edit task form starts -->
+    <form method="post">
+      <!-- Show alert -->
+      <p id="alert"></p>
 
-    <!-- Edit task -->
-    <input
-      name="newTask"
-      id="add-task"
-      type="text"
-      value="{{ request.form['newTask'] or task['task'] }}"
-      required
-    />
-    <!-- Due date -->
-    <input
-      name="duedate"
-      id="duedate"
-      type="datetime-local"
-      placeholder="MM/dd hh:mm A"
-      value="{{ request.form['duedate'] }}"
-    />
-    <!-- Priority -->
-    <input
-      name="priority"
-      id="priority"
-      type="text"
-      value="{{ request.form['priority'] or task['priority'] }}"
-    />
-    <!-- Single task set button -->
-    <button type="submit" id="add-btn">Edit</button>
-  </form>
-  <!-- Edit task form ends -->
+      <!-- Edit task -->
+      <input
+        name="newTask"
+        type="text"
+        value="{{ request.form['newTask'] or task['task'] }}"
+        required
+        class="rounded py-1 px-2 border-2 border-blue-500"
+      />
+      <!-- Due date -->
+      <input
+        name="duedate"
+        type="datetime-local"
+        value="{{ request.form['duedate'] }}"
+        class="rounded py-1 px-2 border-2 border-blue-500"
+      />
+      <!-- Priority -->
+      <input
+        name="priority"
+        type="text"
+        value="{{ request.form['priority'] or task['priority'] }}"
+        class="rounded py-1 px-2 border-2 border-blue-500"
+      />
+      <!-- Single task set button -->
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+      >
+        Edit
+      </button>
+    </form>
+    <!-- Edit task form ends -->
+  </div>
 </section>
 
 {% endblock %}

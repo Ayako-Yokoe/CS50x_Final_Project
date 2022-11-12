@@ -2,70 +2,105 @@
 block body %}
 
 <section>
-  <div>
-    <h3>TODAY'S TO DO</h3>
-  </div>
-  <div>
-    <!-- Calendar -->
-    <form action="{{ url_for('list.index') }}" method="post" id="task-form">
-      <input name="day" id="day" type="date" required />
-      <button type="submit" id="set-btn">SET</button>
-    </form>
+  <div class="flex flex-col justify-center items-center mt-6">
+    <h3 class="text-4xl font-bold">TODAY'S TO DO</h3>
+
+    <div class="m-8 text-2xl">
+      <!-- Calendar -->
+      <form action="{{ url_for('list.index') }}" method="post">
+        <input
+          name="day"
+          type="date"
+          required
+          class="rounded py-1 px-2 border-2 border-blue-500 text-lg"
+        />
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-300 text-white text-lg rounded py-2 px-4 ml-5"
+        >
+          SET
+        </button>
+      </form>
+    </div>
   </div>
 
   <!-- Todo list starts -->
-  <div class="list-container">
-    <div id="list">
-      <ul>
-        {% for task in tasks %}
-        <li>
-          <span>{{ task['priority'] }}</span>
-          <span>{{ task['duedate'] }}</span>
-          <span>{{ task['task'] }}</span>
-        </li>
+  <div>
+    {% for task in tasks %}
+    <div class="flex flex-row justify-start items-center">
+      <p
+        class="basis-auto rounded py-1 px-3 mr-1 mb-3 border-2 border-blue-500"
+      >
+        {{ task['priority'] }}
+      </p>
+      <p class="basis-1/4 rounded py-1 px-2 mr-1 mb-3 border-2 border-blue-500">
+        {{ task['duedate'] }}
+      </p>
+      <p class="basis-1/2 rounded py-1 px-2 mr-1 mb-3 border-2 border-blue-500">
+        {{ task['task'] }}
+      </p>
 
-        <div class="todo-list-btns">
-          <!-- Edit button -->
-          <a href="{{ url_for('todo.edit', id=task['id']) }}"
-            ><button id="edit-btn" type="button">edit</button></a
+      <div class="flex flex-row justify-end items-center ml-auto mb-3">
+        <!-- Edit button -->
+        <a href="{{ url_for('todo.edit', id=task['id']) }}"
+          ><button
+            type="button"
+            class="ml-auto mr-1 bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
           >
-          <!-- Delete button -->
-          <form
-            action="{{ url_for('todo.delete', id=task['id']) }}"
-            method="post"
-          >
-            <input id="delete-btn" type="submit" value="Delete" />
-          </form>
-          <!-- Completed button -->
-          <form
-            action="{{ url_for('list.completed', id=task['id']) }}"
-            method="post"
-          >
-            <input
-              id="complete-btn"
-              type="submit"
-              name="completed"
-              value="{{ task['completed'] == 0 and 'Incompleted' or 'Completed'}}"
-            />
-          </form>
-        </div>
-        {% endfor %}
-      </ul>
+            edit
+          </button></a
+        >
+        <!-- Delete button -->
+        <form
+          action="{{ url_for('todo.delete', id=task['id']) }}"
+          method="post"
+        >
+          <input
+            type="submit"
+            value="Delete"
+            class="mr-1 bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+          />
+        </form>
+        <!-- Completed button -->
+        <form
+          action="{{ url_for('list.completed', id=task['id']) }}"
+          method="post"
+        >
+          <input
+            type="submit"
+            name="completed"
+            value="{{ task['completed'] == 0 and 'Incompleted' or 'Completed'}}"
+            class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+          />
+        </form>
+      </div>
     </div>
+    {% endfor %}
   </div>
   <!-- Todo list ends -->
 
-  <!-- Go back to plan page starts -->
-  <a href="{{ url_for('todo.index') }}"
-    ><button id="plan-btn" type="button">Plan</button></a
-  >
-  <!-- Go back to plan page ends -->
+  <div class="flex flex-row justify-around items-center mt-8">
+    <!-- Go back to plan page starts -->
+    <a href="{{ url_for('todo.index') }}"
+      ><button
+        type="button"
+        class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+      >
+        Plan
+      </button></a
+    >
+    <!-- Go back to plan page ends -->
 
-  <!-- Today's task done starts -->
-  <form action="{{ url_for('list.done') }}" method="post">
-    <input id="done-btn" type="submit" value="Done" />
-  </form>
-  <!-- Today's task done ends -->
+    <!-- Today's task done starts -->
+    <form action="{{ url_for('list.done') }}" method="post">
+      <input
+        type="submit"
+        value="Done"
+        class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+      />
+    </form>
+    <!-- Today's task done ends -->
+  </div>
 </section>
 
 {% endblock %}
