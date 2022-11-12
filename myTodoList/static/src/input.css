@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  letter-spacing: 2px;
+  background-color: rgb(23, 42, 83);
+}
+
+.circle-1::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  background-color: #cf9fff;
+  border-radius: 50%;
+  width: 600px;
+  height: 600px;
+  z-index: -10;
+  backdrop-filter: blur(50px);
+}
+
+.circle-2::before {
+  content: "";
+  position: absolute;
+  bottom: -25%;
+  right: -25%;
+  background-color: #d83f87;
+  border-radius: 50%;
+  width: 500px;
+  height: 500px;
+  z-index: -10;
+}

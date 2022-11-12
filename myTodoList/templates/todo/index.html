@@ -1,8 +1,8 @@
 {% extends "layout.html" %} {% block title %} Plan {% endblock %} {% block body
 %}
 
-<section>
-  <div class="flex flex-col justify-center items-center mt-6">
+<section class="backdrop-blur-xl bg-white/60 rounded-xl">
+  <div class="flex flex-col justify-center items-center mt-10 pt-6 px-8">
     <h3 class="text-4xl font-bold">PLAN TODO</h3>
     <!-- Add task form starts -->
     <form
@@ -17,7 +17,7 @@
           type="date"
           value="{{ request.form['day'] }}"
           required
-          class="rounded py-1 px-2 border-2 border-blue-500"
+          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
         />
       </div>
 
@@ -33,7 +33,7 @@
           placeholder="Add Task"
           value="{{ request.form['newTask'] }}"
           required
-          class="rounded py-1 px-2 border-2 border-blue-500"
+          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
         />
         <!-- Due Date -->
         <input
@@ -41,7 +41,7 @@
           id="duedate"
           type="datetime-local"
           value="{{ request.form['duedate'] }}"
-          class="rounded py-1 px-2 border-2 border-blue-500"
+          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
         />
         <!-- Priority -->
         <input
@@ -50,12 +50,12 @@
           type="text"
           placeholder="Priority"
           value="{{ request.form['priority'] }}"
-          class="rounded py-1 px-2 border-2 border-blue-500"
+          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
         />
         <!-- Single task set button -->
         <button
           type="submit"
-          class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+          class="text-sm bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
         >
           ADD
         </button>
@@ -66,17 +66,21 @@
 
   <!-- Todo list starts -->
 
-  <div>
+  <div class="px-8">
     {% for task in tasks %}
     <div class="flex flex-row justify-start items-center">
-      <p class="basis-1/2 rounded py-1 px-2 mr-1 mb-3 border-2 border-blue-500">
+      <p
+        class="basis-1/2 rounded py-1 px-2 mr-1 mb-3 border border-blue-900 bg-white"
+      >
         {{ task['task'] }}
       </p>
-      <p class="basis-1/4 rounded py-1 px-2 mr-1 mb-3 border-2 border-blue-500">
+      <p
+        class="basis-1/4 rounded py-1 px-2 mr-1 mb-3 border border-blue-900 bg-white"
+      >
         {{ task['duedate'] }}
       </p>
       <p
-        class="basis-auto rounded py-1 px-3 mr-1 mb-3 border-2 border-blue-500"
+        class="basis-1/6 rounded py-1 px-3 mr-1 mb-3 border border-blue-900 bg-white text-center"
       >
         {{ task['priority'] }}
       </p>
@@ -86,7 +90,7 @@
         <a href="{{ url_for('todo.edit', id=task['id']) }}"
           ><button
             type="button"
-            class="ml-auto mr-1 bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+            class="ml-auto mr-1 bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
           >
             edit
           </button></a
@@ -99,7 +103,7 @@
           <input
             type="submit"
             value="Delete"
-            class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+            class="bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
           />
         </form>
       </div>
@@ -108,12 +112,12 @@
     {% endfor %}
   </div>
 
-  <div class="flex justify-center items-center">
+  <div class="flex justify-center items-center pb-6 px-8">
     <!-- All tasks set button starts -->
     <a href="{{ url_for('list.index') }}"
       ><button
         type="button"
-        class="self-center bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+        class="self-center bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
       >
         SET
       </button></a

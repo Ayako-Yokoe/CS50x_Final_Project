@@ -1,7 +1,9 @@
 {% extends "layout.html" %} {% block title %} Edit {% endblock %} {% block body
 %}
 <section>
-  <div class="flex justify-center mt-60 mx-auto">
+  <div
+    class="flex justify-center mt-60 mx-auto backdrop-blur-xl bg-white/60 rounded-xl py-6 px-10"
+  >
     <!-- Edit task form starts -->
     <form method="post">
       <!-- Show alert -->
@@ -13,26 +15,26 @@
         type="text"
         value="{{ request.form['newTask'] or task['task'] }}"
         required
-        class="rounded py-1 px-2 border-2 border-blue-500"
+        class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
       />
       <!-- Due date -->
       <input
         name="duedate"
         type="datetime-local"
         value="{{ request.form['duedate'] }}"
-        class="rounded py-1 px-2 border-2 border-blue-500"
+        class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
       />
       <!-- Priority -->
       <input
         name="priority"
         type="text"
         value="{{ request.form['priority'] or task['priority'] }}"
-        class="rounded py-1 px-2 border-2 border-blue-500"
+        class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
       />
       <!-- Single task set button -->
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+        class="text-sm bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
       >
         Edit
       </button>
