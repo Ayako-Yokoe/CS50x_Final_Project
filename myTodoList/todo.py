@@ -6,7 +6,6 @@ from myTodoList.db import get_db
 
 bp = Blueprint('todo', __name__)
 
-
 # Render all tasks when GET, and create new tasks when POST
 @bp.route('/', methods=('GET', 'POST'))
 def index():
@@ -47,7 +46,7 @@ def index():
         # db.execute('DELETE FROM tasks')
         # db.commit()                                      
         tasks = db.execute(
-            "SELECT id, strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M', duedate) AS duedate, priority, completed FROM tasks"
+            "SELECT id, strftime('%Y/%m/%d', day) AS day, task, strftime('%m/%d %H:%M', duedate) AS duedate, priority, completed FROM tasks"
             ).fetchall()
 
         return render_template('todo/index.html', tasks=tasks)

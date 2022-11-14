@@ -1,43 +1,69 @@
 {% extends "layout.html" %} {% block title %} Edit {% endblock %} {% block body
 %}
 <section>
-  <div class="flex justify-center mt-60 mx-auto">
+  <div
+    class="flex flex-col justify-center text-center mt-60 mx-auto backdrop-blur-xl bg-white/60 rounded-xl py-6 px-10"
+  >
+    <h4 class="text-4xl font-bold pb-6 tracking-widest">EDIT</h4>
     <!-- Edit task form starts -->
     <form method="post">
-      <!-- Show alert -->
-      <p id="alert"></p>
+      <div class="basis-1 flex flex-row justify-around">
+        <!-- Edit task -->
+        <div class="flex flex-col justify-start mr-1">
+          <label for="newTask" class="text-xs tracking-widest text-start"
+            >NEW TASK</label
+          >
+          <input
+            name="newTask"
+            id="newTask"
+            type="text"
+            value="{{ request.form['newTask'] or task['task'] }}"
+            required
+            class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
+          />
+        </div>
 
-      <!-- Edit task -->
-      <input
-        name="newTask"
-        type="text"
-        value="{{ request.form['newTask'] or task['task'] }}"
-        required
-        class="rounded py-1 px-2 border-2 border-blue-500"
-      />
-      <!-- Due date -->
-      <input
-        name="duedate"
-        type="datetime-local"
-        value="{{ request.form['duedate'] }}"
-        class="rounded py-1 px-2 border-2 border-blue-500"
-      />
-      <!-- Priority -->
-      <input
-        name="priority"
-        type="text"
-        value="{{ request.form['priority'] or task['priority'] }}"
-        class="rounded py-1 px-2 border-2 border-blue-500"
-      />
+        <!-- Due date -->
+        <div class="flex flex-col justify-start mr-1">
+          <lable for="duedate" class="text-xs tracking-widest text-start"
+            >DUE DATE</lable
+          >
+          <input
+            name="duedate"
+            id="duedate"
+            type="datetime-local"
+            value="{{ request.form['duedate'] }}"
+            class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
+          />
+        </div>
+        <!-- Priority -->
+        <div class="flex flex-col justify-start mr-1">
+          <label for="priority" class="text-xs tracking-widest text-start"
+            >PRIORITY</label
+          >
+          <input
+            name="priority"
+            id="priority"
+            type="text"
+            value="{{ request.form['priority'] or task['priority'] }}"
+            class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
+          />
+        </div>
+     
       <!-- Single task set button -->
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-4"
+        class="text-xs bg-blue-800 hover:bg-blue-600 text-white rounded  mt-3 py-2 px-4"
       >
         Edit
       </button>
     </form>
+  </div>
     <!-- Edit task form ends -->
+    <!-- Show alert -->
+    {% for message in get_flashed_messages() %}
+    <div class="text-rose-700 text-center py-4">{{ message }}</div>
+    {% endfor %}
   </div>
 </section>
 

@@ -26,7 +26,7 @@ def index():
         else:
             db = get_db()
             tasks = db.execute(
-                "SELECT id, strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M:%S', duedate) AS duedate, priority, completed FROM tasks WHERE day=? ORDER BY priority, duedate", (day,)
+                "SELECT id, strftime('%Y/%m/%d', day) AS day, task, strftime('%m/%d %H:%M', duedate) AS duedate, priority, completed FROM tasks WHERE day=? ORDER BY priority, duedate", (day,)
                 ).fetchall()
             
             return render_template('list/list.html', tasks=tasks)   
@@ -35,7 +35,7 @@ def index():
     else:
         db = get_db()                                   
         tasks = db.execute(
-            "SELECT id, strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M:%S', duedate) AS duedate, priority, completed FROM tasks ORDER BY priority, duedate"
+            "SELECT id, strftime('%Y/%m/%d', day) AS day, task, strftime('%m/%d %H:%M', duedate) AS duedate, priority, completed FROM tasks ORDER BY priority, duedate"
             ).fetchall()
 
         return render_template('list/list.html', tasks=tasks)
@@ -45,7 +45,7 @@ def index():
 def get_task(id):
     db = get_db()
     task = db.execute(
-        "SELECT strftime('%Y-%m-%d', day) AS day, task, strftime('%m-%d %H:%M:%S', duedate) AS duedate, priority FROM tasks WHERE id=?", (id,)
+        "SELECT strftime('%Y/%m/%d', day) AS day, task, strftime('%m/%d %H:%M', duedate) AS duedate, priority FROM tasks WHERE id=?", (id,)
         ).fetchone()
 
     if task is None:
