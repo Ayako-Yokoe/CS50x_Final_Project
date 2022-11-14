@@ -34,9 +34,3 @@ def create_app(test_config=None):
     app.add_url_rule('/list', endpoint='list')
     
     return app
-
-
-
-
-# . venv/bin/activate
-# flask --app myTodoList --debug run
