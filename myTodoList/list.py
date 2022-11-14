@@ -29,7 +29,9 @@ def index():
                 "SELECT id, strftime('%Y/%m/%d', day) AS day, task, strftime('%m/%d %H:%M', duedate) AS duedate, priority, completed FROM tasks WHERE day=? ORDER BY priority, duedate", (day,)
                 ).fetchall()
             
-            return render_template('list/list.html', tasks=tasks)   
+            return render_template('list/list.html', tasks=tasks) 
+
+        return render_template('list/list.html')   
 
     # Display all tasks, order by priority and due date
     else:
