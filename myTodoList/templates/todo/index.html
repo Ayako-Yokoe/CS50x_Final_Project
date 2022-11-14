@@ -1,9 +1,17 @@
 {% extends "layout.html" %} {% block title %} Plan {% endblock %} {% block body
 %}
 
-<section class="backdrop-blur-xl bg-white/60 rounded-xl">
-  <div class="flex flex-col justify-center items-center mt-10 pt-6 px-8">
-    <h3 class="text-4xl font-bold">PLAN TODO</h3>
+<!-- 
+fontawesome_html
+<span class="fas fa-link"></span> 
+-->
+
+<section class="backdrop-blur-xl bg-white/40 rounded-xl mx-4">
+  <div
+    class="flex flex-col justify-center items-center mt-10 pt-6 px-1 mb-6 md:mb-0"
+  >
+    <h3 class="text-4xl font-bold tracking-widest">PLAN TODO</h3>
+
     <!-- Add task form starts -->
     <form
       method="post"
@@ -11,51 +19,58 @@
     >
       <div class="basis-1 mb-6">
         <!-- Calendar -->
-        <input
-          name="day"
-          id="day"
-          type="date"
-          value="{{ request.form['day'] }}"
-          required
-          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
-        />
+        <div class="flex flex-col justify-start">
+          <label for="calendar" class="text-xs tracking-widest">DAY</label>
+          <input
+            name="day"
+            id="calendar"
+            type="date"
+            value="{{ request.form['day'] }}"
+            class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
+          />
+        </div>
       </div>
 
-      <!-- Show alert -->
-      <p id="alert"></p>
-
-      <div class="basis-1">
+      <div class="basis-1 flex flex-col md:flex-row justify-around">
         <!-- Add task -->
-        <input
-          name="newTask"
-          id="add-task"
-          type="text"
-          placeholder="Add Task"
-          value="{{ request.form['newTask'] }}"
-          required
-          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
-        />
+        <div class="flex flex-col justify-start mr-1 mb-2 md:mb-0">
+          <label for="newTask" class="text-xs tracking-widest">NEW TASK</label>
+          <input
+            name="newTask"
+            id="newTask"
+            type="text"
+            placeholder="Add Task"
+            value="{{ request.form['newTask'] }}"
+            class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
+          />
+        </div>
         <!-- Due Date -->
-        <input
-          name="duedate"
-          id="duedate"
-          type="datetime-local"
-          value="{{ request.form['duedate'] }}"
-          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
-        />
+        <div class="flex flex-col justify-start mr-1 mb-2 md:mb-0">
+          <lable for="duedate" class="text-xs tracking-widest">DUE DATE</lable>
+          <input
+            name="duedate"
+            id="duedate"
+            type="datetime-local"
+            value="{{ request.form['duedate'] }}"
+            class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
+          />
+        </div>
         <!-- Priority -->
-        <input
-          name="priority"
-          id="priority"
-          type="text"
-          placeholder="Priority"
-          value="{{ request.form['priority'] }}"
-          class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
-        />
+        <div class="flex flex-col justify-start mr-1">
+          <label for="priority" class="text-xs tracking-widest">PRIORITY</label>
+          <input
+            name="priority"
+            id="priority"
+            type="text"
+            placeholder="Priority"
+            value="{{ request.form['priority'] }}"
+            class="rounded py-1 px-2 outline-1 outline-offset-2 outline-blue-700"
+          />
+        </div>
         <!-- Single task set button -->
         <button
           type="submit"
-          class="text-sm bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
+          class="text-xs bg-blue-800 hover:bg-blue-600 text-white rounded mt-3 py-2 px-4"
         >
           ADD
         </button>
@@ -64,9 +79,73 @@
   </div>
   <!-- Add task form ends -->
 
+  <!-- Show alert -->
+  {% for message in get_flashed_messages() %}
+  <div class="text-rose-700 text-center py-4">{{ message }}</div>
+  {% endfor %}
+
   <!-- Todo list starts -->
 
-  <div class="px-8">
+  <!-- Media Quert sm -->
+  <div class="pl-5 flex flex-col justify-center md:hidden">
+    {% for task in tasks %}
+    <div class="flex flex-row justify-start items-center mb-3">
+      <div class="basis-3/4">
+        <div>
+          <p
+            class="rounded py-1 px-2 mr-1 mb-3 border border-blue-900 bg-white"
+          >
+            {{ task['task'] }}
+          </p>
+        </div>
+        <div class="flex flex-row">
+          <p
+            class="basis-3/4 rounded py-1 px-2 mr-1 mb-3 border border-blue-900 bg-white"
+          >
+            {{ task['duedate'] }}
+          </p>
+          <p
+            class="basis-1/4 rounded py-1 px-3 mr-1 mb-3 border border-blue-900 bg-white text-center"
+          >
+            {{ task['priority'] and task['priority'] or 'None' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="basis-1/8 flex flex-col justify-start">
+        <!-- Edit button -->
+        <div class="basis-1/2 mb-3">
+          <a href="{{ url_for('todo.edit', id=task['id']) }}"
+            ><button
+              type="button"
+              class="ml-auto mr-1 bg-blue-800 hover:bg-blue-600 text-white rounded py-1 px-4"
+            >
+              <i class="fas fa-pen fa-sm"></i></button
+          ></a>
+        </div>
+        <!-- Delete button -->
+        <div class="basis-1/2 mb-3">
+          <form
+            action="{{ url_for('todo.delete', id=task['id']) }}"
+            method="post"
+          >
+            <button
+              type="submit"
+              class="bg-blue-800 hover:bg-blue-600 text-white rounded py-1 px-4"
+            >
+              <i class="fas fa-trash fa-sm"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+  <!-- Media Quert sm -->
+
+  <!-- Media Quert md+ -->
+  <div class="px-8 flex flex-col justify-center hidden md:block">
     {% for task in tasks %}
     <div class="flex flex-row justify-start items-center">
       <p
@@ -82,7 +161,7 @@
       <p
         class="basis-1/6 rounded py-1 px-3 mr-1 mb-3 border border-blue-900 bg-white text-center"
       >
-        {{ task['priority'] }}
+        {{ task['priority'] and task['priority'] or 'None' }}
       </p>
 
       <div class="flex flex-row justify-end items-center ml-auto mb-3">
@@ -92,7 +171,7 @@
             type="button"
             class="ml-auto mr-1 bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
           >
-            edit
+            Edit
           </button></a
         >
         <!-- Delete button -->
@@ -111,6 +190,7 @@
 
     {% endfor %}
   </div>
+  <!-- Media Quert md -->
 
   <div class="flex justify-center items-center pb-6 px-8">
     <!-- All tasks set button starts -->
@@ -119,7 +199,7 @@
         type="button"
         class="self-center bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
       >
-        SET
+        SAVE
       </button></a
     >
   </div>
