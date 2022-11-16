@@ -110,7 +110,7 @@ block body %}
               name="completed"
               class="bg-blue-800 hover:bg-blue-600 text-white rounded w-10 h-20 py-1 px-1"
             >
-              {% if task['completed'] == 0 %}
+              {% if task['completed'] == 1 %}
               <i class="fas fa-check fa-sm"></i>
               {% else %}
               <span></span>
@@ -149,7 +149,7 @@ block body %}
         <a href="{{ url_for('todo.edit', id=task['id']) }}"
           ><button
             type="button"
-            class="bg-blue-800 hover:bg-blue-600 text-white rounded ml-auto mr-1 py-2 px-4"
+            class="bg-blue-800 hover:bg-blue-600 text-white md:text-sm rounded ml-auto mr-1 py-2 px-4"
           >
             EDIT
           </button></a
@@ -162,7 +162,7 @@ block body %}
           <input
             type="submit"
             value="DELETE"
-            class="bg-blue-800 hover:bg-blue-600 text-white rounded mr-1 py-2 px-4"
+            class="bg-blue-800 hover:bg-blue-600 text-white md:text-sm rounded mr-1 py-2 px-4"
           />
         </form>
         <!-- Completed button -->
@@ -173,8 +173,8 @@ block body %}
           <input
             type="submit"
             name="completed"
-            value="{{ task['completed'] == 0 and 'INCOMPLETED' or 'COMPLETED!!'}}"
-            class="bg-blue-800 hover:bg-blue-600 text-white rounded py-2 px-4"
+            value="{{ task['completed'] == 0 and 'UNCOMPLETED' or ' COMPLETED!!  '}}"
+            class="bg-blue-800 hover:bg-blue-600 text-white md:text-sm rounded py-2 px-4"
           />
         </form>
       </div>

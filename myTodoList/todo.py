@@ -39,12 +39,10 @@ def index():
             db.commit()
             return redirect(url_for('todo.index'))
 
-        return render_template('todo/index.html')   
+        return render_template('todo/index.html')
 
     else:
-        db = get_db()
-        # db.execute('DELETE FROM tasks')
-        # db.commit()                                      
+        db = get_db()                                   
         tasks = db.execute(
             "SELECT id, strftime('%Y/%m/%d', day) AS day, task, strftime('%m/%d %H:%M', duedate) AS duedate, priority, completed FROM tasks"
             ).fetchall()

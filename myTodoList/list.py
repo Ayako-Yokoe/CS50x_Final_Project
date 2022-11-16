@@ -56,7 +56,7 @@ def get_task(id):
     return task
 
 
-# Handle completed/incompleted
+# Handle completed/uncompleted
 @bp.route('/<int:id>/completed', methods=('GET', 'POST'))
 def completed(id):
     task = get_task(id)
@@ -83,7 +83,7 @@ def completed(id):
 def done():
         db = get_db()
 
-        # Move imcompleted task to the following day
+        # Carry over uncompleted task to the following day
         today = date.today()
         db.execute(
             "UPDATE tasks SET day=DATE(day, '+1 day') WHERE day=? AND completed = 0", (today,))

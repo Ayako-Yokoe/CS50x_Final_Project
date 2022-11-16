@@ -32,5 +32,9 @@ def create_app(test_config=None):
     from . import list
     app.register_blueprint(list.bp)
     app.add_url_rule('/list', endpoint='list')
+
+    from . import intro
+    app.register_blueprint(intro.bp)
+    app.add_url_rule('/intro', endpoint='intro')
     
     return app

@@ -26,20 +26,20 @@ input[type="date"] {
 @media (min-width: 1024px) {
   body,
   input {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 @media (min-width: 1280px) {
   body,
   input {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
 @media (min-width: 1536px) {
   body,
   input {
-    font-size: 30px;
+    font-size: 28px;
   }
 }
