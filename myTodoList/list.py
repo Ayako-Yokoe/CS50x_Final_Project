@@ -73,9 +73,17 @@ def completed(id):
 
         db.execute('UPDATE tasks SET completed=? WHERE id=?', (updatedComplete, id,))
         db.commit()
-        return redirect(url_for('list.index'))
 
-    return render_template('list/list.html', task=task)
+        # Render updated tasks of the selected date
+        days = db.execute("SELECT strftime('%Y-%m-%d', day) AS day FROM tasks WHERE id=?", (id,))
+        for td in days:
+            today = td[0]
+
+        tasks = db.execute(
+            "SELECT id, strftime('%Y/%m/%d', day) AS day, task, strftime('%m/%d %H:%M', duedate) AS duedate, priority, completed FROM tasks WHERE day=? ORDER BY priority, duedate", (today,)
+            ).fetchall()
+        
+        return render_template('list/list.html', tasks=tasks)
 
 
 # Update values for following days
