@@ -13,7 +13,7 @@ This app will help you save time and energy because you don't need to re-create 
 - SQLite3
 - Tailwind CSS
 
-## Live Video
+## Contents
 
 [Demonstration Video](https://www.youtube.com/watch?v=ZXRNvVoVqCE&t=43s)
 
