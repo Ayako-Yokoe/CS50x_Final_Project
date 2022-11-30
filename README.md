@@ -29,6 +29,6 @@ This page is responsive. For a tablet and a larger screen size, each task is dis
 
 ## License
 
-[CS50x](https://cs50.harvard.edu/x/2022/)
-[Flask](https://flask.palletsprojects.com/en/2.2.x/)
+[CS50x](https://cs50.harvard.edu/x/2022/)<br>
+[Flask](https://flask.palletsprojects.com/en/2.2.x/)<br>
 [Tailwind CSS](https://tailwindcss.com/)
