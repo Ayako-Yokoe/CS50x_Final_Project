@@ -1,3 +1,15 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/myTodoList/__init__" }]
+  "version": 2,
+  "builds": [
+    {
+      "src": "/myTodoList/__init__",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/myTodoList/__init__"
+    }
+  ]
 }
