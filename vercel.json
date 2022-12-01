@@ -1,3 +1,3 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/myTodoList/__init__.py" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/myTodoList/__init__" }]
 }
